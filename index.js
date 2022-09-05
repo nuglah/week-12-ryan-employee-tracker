@@ -1,5 +1,6 @@
 require("dotenv").config();
 const chalk = require("chalk");
+const inquirer = require("inquirer");
 const dbConfig = require("./config/dbConfig");
 
 async function main() {
@@ -12,3 +13,5 @@ async function main() {
   console.info(chalk.blue("=".repeat(30)));
 }
 main();
+
+// inquirer.prompt(questions).then((response)
