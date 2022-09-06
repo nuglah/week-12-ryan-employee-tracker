@@ -21,21 +21,22 @@ async function main() {
   console.info(chalk.blue("Connected to database!"));
   console.info(chalk.blue("=".repeat(30)));
   */
-  inquirer.prompt(questions).then((response) => {
+  inquirer.prompt(questions).then(async (response) => {
     // console.log("response", response);
     switch (response.title) {
       case "view all departments":
-        department.getDepartments();
+        await department.getDepartments();
         main();
         break;
       case "view all roles":
-        role.getRoles();
+        await role.getRoles();
         main();
         break;
       default:
         main();
         break;
     }
+    return false;
   });
 }
 main();
