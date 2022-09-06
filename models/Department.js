@@ -5,7 +5,9 @@ class Department {
   async getDepartments() {
     // this.dbConnection.query("SELECT d.id, d.name " + "FROM department d ");
     const results = await connect.query("select * from department");
+    console.log("\n");
     console.table(results[0]);
+    console.log("\n");
   }
 }
 module.exports = Department;

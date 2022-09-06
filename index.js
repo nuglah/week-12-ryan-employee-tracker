@@ -5,10 +5,12 @@ const inquirer = require("inquirer");
 // const dbConfig = require("./config/dbConfig");
 // const mysql = require("mysql2/promise");
 const Department = require("./models/Department");
+const Role = require("./models/Role");
 const cTable = require("console.table");
 
 // const dbConnection = await dbConfig();
 let department = new Department();
+let role = new Role();
 
 async function main() {
   /*
@@ -24,6 +26,10 @@ async function main() {
     switch (response.title) {
       case "view all departments":
         department.getDepartments();
+        main();
+        break;
+      case "view all roles":
+        role.getRoles();
         main();
         break;
       default:
