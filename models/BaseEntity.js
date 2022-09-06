@@ -1,3 +1,4 @@
+//const dbConfig = require("./config/dbConfig");
 const dbConnection = await dbConfig();
 
 class BaseEntity {
