@@ -8,7 +8,7 @@ async function connect() {
       host: DB_HOST,
       port: DB_PORT,
       user: DB_USER,
-      DB_PASSWORD: DB_PASSWORD,
+      password: DB_PASSWORD,
       database: DB_SCHEMA,
     });
     return connection;
