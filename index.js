@@ -1,16 +1,18 @@
 require("dotenv").config();
-const questions = require("./utils/questions");
+const { questions, departmentQuestions } = require("./utils/questions");
 const chalk = require("chalk");
 const inquirer = require("inquirer");
 // const dbConfig = require("./config/dbConfig");
 // const mysql = require("mysql2/promise");
 const Department = require("./models/Department");
 const Role = require("./models/Role");
+const Employee = require("./models/Employee");
 const cTable = require("console.table");
 
 // const dbConnection = await dbConfig();
 let department = new Department();
 let role = new Role();
+let employee = new Employee();
 
 async function main() {
   /*
@@ -32,11 +34,21 @@ async function main() {
         await role.getRoles();
         main();
         break;
+      case "view all employees":
+        await employee.getEmployees();
+        main();
+        break;
+      case "add a department":
+        inquirer.prompt(departmentQuestions).then(async (response) => {
+          console.log(response);
+          department.addDepartment(response.name);
+          main();
+        });
+        break;
       default:
         main();
         break;
     }
-    return false;
   });
 }
 main();

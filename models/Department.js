@@ -9,5 +9,11 @@ class Department {
     console.table(results[0]);
     console.log("\n");
   }
+  async addDepartment(name) {
+    await connect.query(
+      "insert into department (name) values ('" + name + "')"
+    );
+  }
 }
+
 module.exports = Department;

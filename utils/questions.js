@@ -15,5 +15,12 @@ const questions = [
     ],
   },
 ];
+const departmentQuestions = [
+  {
+    type: "input",
+    name: "name",
+    message: "what is the name of the department?",
+  },
+];
 
-module.exports = questions;
+module.exports = { departmentQuestions, questions };
