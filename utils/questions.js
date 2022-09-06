@@ -1,3 +1,5 @@
+const Department = require("../models/Department");
+let department = new Department();
 // Array of objects for the questions in the inquierer.
 const questions = [
   {
@@ -22,5 +24,24 @@ const departmentQuestions = [
     message: "what is the name of the department?",
   },
 ];
+
+// const roleQuestions = [
+//   {
+//     type: "input",
+//     name: "name",
+//     message: "what is the name of the role?",
+//   },
+//   {
+//     type: "number",
+//     name: "salary",
+//     message: "what is the salary of the role?",
+//   },
+//   {
+//     type: "list",
+//     name: "department",
+//     message: "which department does this role belong to?",
+//     choices: [getDepartments()],
+//   },
+// ];
 
 module.exports = { departmentQuestions, questions };

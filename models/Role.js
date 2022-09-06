@@ -11,5 +11,16 @@ class Role {
     console.table(results[0]);
     console.log("\n");
   }
+  async addRole(name, salary, departmentId) {
+    await connect.query(
+      "insert into role (title, salary, department_id) values ('" +
+        name +
+        "'," +
+        salary +
+        "," +
+        departmentId +
+        ")"
+    );
+  }
 }
 module.exports = Role;

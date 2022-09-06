@@ -14,6 +14,44 @@ let department = new Department();
 let role = new Role();
 let employee = new Employee();
 
+async function addRole() {
+  const departments = await department.getDepartments();
+  const departmentList = departments.map((a) => a.name);
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "name",
+        message: "what is the name of the role?",
+      },
+      {
+        type: "number",
+        name: "salary",
+        message: "what is the salary of the role?",
+      },
+      {
+        type: "list",
+        name: "department",
+        message: "which department does this role belong to?",
+        choices: departmentList,
+      },
+    ])
+    .then(async (response) => {
+      console.log(response);
+      let departmentId = null;
+      for (let i = 0; i < departments.length; i++) {
+        if (departments[i].name === response.department) {
+          departmentId = departments[i].id;
+          break;
+        }
+      }
+      console.log(departmentId);
+      await role.addRole(response.name, response.salary, departmentId);
+
+      main();
+    });
+}
+
 async function main() {
   /*
   console.info(chalk.blue("=".repeat(30)));
@@ -27,7 +65,7 @@ async function main() {
     // console.log("response", response);
     switch (response.title) {
       case "view all departments":
-        await department.getDepartments();
+        await department.printDepartments();
         main();
         break;
       case "view all roles":
@@ -44,6 +82,9 @@ async function main() {
           department.addDepartment(response.name);
           main();
         });
+        break;
+      case "add a role":
+        addRole();
         break;
       default:
         main();
