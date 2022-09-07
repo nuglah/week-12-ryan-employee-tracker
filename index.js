@@ -52,6 +52,115 @@ async function addRole() {
     });
 }
 
+async function updateEmployee() {
+  const roles = await role.getRoles();
+  const roleList = roles.map((a) => a.title);
+  const employees = await employee.getEmployees();
+  const employeeList = employees.map((a) => `${a.first_name} ${a.last_name}`);
+
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "employee",
+        message: "which employee's role do you want to update?",
+        choices: employeeList,
+      },
+      {
+        type: "list",
+        name: "role",
+        message: "which role do you want to assign to the selected employee?",
+        choices: roleList,
+      },
+    ])
+    .then(async (response) => {
+      let roleId = null;
+      for (let i = 0; i < roles.length; i++) {
+        if (roles[i].title === response.role) {
+          roleId = roles[i].id;
+          break;
+        }
+      }
+
+      let employeeId = null;
+      for (let i = 0; i < employees.length; i++) {
+        if (
+          `${employees[i].first_name} ${employees[i].last_name}` ===
+          response.employee
+        ) {
+          employeeId = employees[i].id;
+          break;
+        }
+      }
+
+      await employee.updateEmployee(employeeId, roleId);
+
+      main();
+    });
+}
+
+async function addEmployee() {
+  const roles = await role.getRoles();
+  const roleList = roles.map((a) => a.title);
+  const employees = await employee.getEmployees();
+  const employeeList = employees.map((a) => `${a.first_name} ${a.last_name}`);
+  employeeList.unshift("None");
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "first_name",
+        message: "what is the employee's first name?",
+      },
+      {
+        type: "input",
+        name: "last_name",
+        message: "what is the employee's last name?",
+      },
+      {
+        type: "list",
+        name: "role",
+        message: "what is the employee's role?",
+        choices: roleList,
+      },
+      {
+        type: "list",
+        name: "employee",
+        message: "who is the employee's manager?",
+        choices: employeeList,
+      },
+    ])
+    .then(async (response) => {
+      let roleId = null;
+      for (let i = 0; i < roles.length; i++) {
+        if (roles[i].title === response.role) {
+          roleId = roles[i].id;
+          break;
+        }
+      }
+
+      let employeeId = null;
+      for (let i = 0; i < employees.length; i++) {
+        if (
+          `${employees[i].first_name} ${employees[i].last_name}` ===
+          response.employee
+        ) {
+          employeeId = employees[i].id;
+          break;
+        }
+      }
+
+      await employee.addEmployee(
+        response.first_name,
+        response.last_name,
+        roleId,
+        employeeId
+      );
+
+      main();
+    });
+}
+
 async function main() {
   /*
   console.info(chalk.blue("=".repeat(30)));
@@ -69,11 +178,11 @@ async function main() {
         main();
         break;
       case "view all roles":
-        await role.getRoles();
+        await role.printRoles();
         main();
         break;
       case "view all employees":
-        await employee.getEmployees();
+        await employee.printEmployees();
         main();
         break;
       case "add a department":
@@ -85,6 +194,12 @@ async function main() {
         break;
       case "add a role":
         addRole();
+        break;
+      case "add an employee":
+        addEmployee();
+        break;
+      case "update employee role":
+        updateEmployee();
         break;
       default:
         main();
