@@ -6,7 +6,8 @@ Using the recent lesson on MySQL, I made a command line application for displayi
 
 ## Installation
 
-Link to the video showing the app functioning
+Link to the video showing the app functioning:
+https://drive.google.com/file/d/1AWT-IhrNyH3ZW_XR8hEk5dtxOAmstbCr/view?usp=sharing
 
 ## Usage
 
